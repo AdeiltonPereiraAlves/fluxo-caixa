@@ -18,6 +18,7 @@ import {
 import { useEffect, useState } from "react"
 import axios from "axios"
 import useApi from "../hooks/useApi"
+import { ProdutosProvider } from "../context/useContext"
 const invoices = [
   {
     invoice: "INV001",
@@ -64,15 +65,10 @@ const invoices = [
 ]
 
 export default function Tabela() {
-    const {dados,getDados, setDados} = useApi()
+    // const {dados,getDados, setDados} = useApi()
+    const {dados,getDados,setDados} = ProdutosProvider()
   
-    useEffect(() => {
-        try {
-              getDados()
-        } catch (error) {
-            throw new Error("erro ao buscar dados")
-        }
-    },[])
+ 
   return (
     <Table>
       <TableCaption>Lista de Produtos</TableCaption>

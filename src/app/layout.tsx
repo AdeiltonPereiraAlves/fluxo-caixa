@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ProdutoProvider } from "./context/useContext";
 
 
 
@@ -17,7 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <ProdutoProvider>
+
         {children}
+        </ProdutoProvider>
       </body>
     </html>
   );
