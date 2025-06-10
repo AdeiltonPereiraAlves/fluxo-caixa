@@ -1,7 +1,9 @@
 import { useState } from "react"
 import axios from "axios"
+import { ProdutosProvider } from "../context/useContext"
 export default function useApi(){
-    const [dados, setDados] = useState()
+  
+    const{dados,setDados, setResDelete} = ProdutosProvider()
 //     async function post(nome: any, descricao: any, preco: any, quantidade: any){
 //          try {
 //      const dadosReturn = await axios.post('http://localhost:3009', {nome, descricao, preco, quantidade})
@@ -18,8 +20,17 @@ export default function useApi(){
             console.log(d, "dadosapi")
             setDados(d)
       }
+      async function deleteProduto(id: any) {
+          const res =  await axios.delete(`http://localhost:3009/api/delete/${id}`)
+          if(res){
+            setResDelete(true)
+            
+          }
+
+      }
     return{
        getDados,
-       dados, setDados
+       dados, setDados,
+       deleteProduto
     }
 }

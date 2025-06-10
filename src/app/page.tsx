@@ -7,17 +7,13 @@ import Tabela from "./components/Tabela";
 import useApi from "./hooks/useApi";
 import { ProdutoProvider, ProdutosProvider } from "./context/useContext";
 export default function Home() {
-  const [nome, setNome] = useState();
-  const [descricao, setDescricao] = useState();
-  const [preco, setPreco] = useState();
-  const [quantidade, setQuantidade] = useState();
+  const [nome, setNome] = useState<string>();
+  const [descricao, setDescricao] = useState<string>();
+  const [preco, setPreco] = useState<number>();
+  const [quantidade, setQuantidade] = useState<number>();
   const [dados, setDados] = useState([]);
 
   const{getDados} = ProdutosProvider()
-
-
-
-
 
 
   async function handleSubmit() {
@@ -30,6 +26,10 @@ export default function Home() {
       setDados(dadosReturn.data);
       console.log(dadosReturn.data, "dados");
       await getDados()
+      setNome("")
+      setDescricao("")
+      setPreco(0)
+      setQuantidade(0)
       
     } catch (error) {
       console.log(error, "erro");
@@ -39,13 +39,14 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <h1>Front caixa</h1>
-     <div className="flex m-10 gap-4 ">
+     <div className="flex m-10 gap-4 p-4 ">
        <input
         type="text"
         name="nome"
         value={nome}
         placeholder="Digite o nome do produto"
         onChange={(e: any) => setNome(e.target.value)}
+        className="p-4 rounded-xl text-sm h-2"
       />
       <input
         type="text"

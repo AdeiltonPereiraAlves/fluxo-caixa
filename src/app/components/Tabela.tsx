@@ -66,8 +66,16 @@ const invoices = [
 
 export default function Tabela() {
     // const {dados,getDados, setDados} = useApi()
-    const {dados,getDados,setDados} = ProdutosProvider()
-  
+    const {dados,getDados,setDados, resDelete, setResDelete} = ProdutosProvider()
+    const {deleteProduto} = useApi()
+   function handleDelete(id:any){
+    console.log(id, "id")
+      deleteProduto(id)
+      if(resDelete){
+        window.alert("Produto deletado")
+      }
+      getDados()
+   }
  
   return (
     <Table>
@@ -76,6 +84,7 @@ export default function Tabela() {
         <TableRow>
           <TableHead className="w-[100px]">Produto</TableHead>
           <TableHead>Descrição</TableHead>
+          <TableHead>Ação</TableHead>
           <TableHead>Preço</TableHead>
           <TableHead className="text-right">Quantidade</TableHead>
         </TableRow>
@@ -85,6 +94,7 @@ export default function Tabela() {
           <TableRow key={invoice.id}>
             <TableCell className="font-medium">{invoice.nome}</TableCell>
             <TableCell>{invoice.descricao}</TableCell>
+            <TableCell><button onClick={()=>handleDelete(invoice.id)}>Excluir</button></TableCell>
             <TableCell>{invoice.preco}</TableCell>
             <TableCell className="text-right">{invoice.quantidade}</TableCell>
           </TableRow>

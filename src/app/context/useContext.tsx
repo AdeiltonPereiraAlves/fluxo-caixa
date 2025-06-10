@@ -16,15 +16,21 @@ type ProdutoContextType = {
 
   dados: any
   getDados: ( ) => any;
-  setDados: any
+  
+  setDados: any;
+  resDelete:any;
+  setResDelete:any
+
+  
  
 };
 
 // 1.3 Valor padrão do contexto
-const AuthContext = createContext<ProdutoContextType | undefined>(undefined);
+const produto = createContext<ProdutoContextType | undefined>(undefined);
 // 1.4 Provider
 export const ProdutoProvider = ({ children }: { children: ReactNode }) => {
     const [dados, setDados] = useState<Produto | null>(null);
+    const [resDelete, setResDelete] = useState<boolean| null>(false)
     
     async function getDados() {
         const dadosApi:any = await axios.get('http://localhost:3009/api/produtos')
@@ -44,15 +50,15 @@ export const ProdutoProvider = ({ children }: { children: ReactNode }) => {
   
 
   return (
-    <AuthContext.Provider value={{getDados, dados, setDados  }}>
+    <produto.Provider value={{getDados, dados, setDados, resDelete, setResDelete  }}>
       {children}
-    </AuthContext.Provider>
+    </produto.Provider>
   );
 };
 
 // 1.5 Hook para usar o contexto
 export const ProdutosProvider = () => {
-  const context = useContext(AuthContext);
+  const context = useContext(produto);
   if (!context) {
     throw new Error('useAuth deve ser usado dentro de um AuthProvider');
   }
